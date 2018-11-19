@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>GE Inventory</title>
+        <link rel="stylesheet" href="normalize.css">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+       
+    </head>
+    <body>
+      
+        <div id="app">
+            <div class=buy-form>
+                <form @submit='newItem'>
+                    <input v-model="newId" type="text" placeholder= 'Item ID' required>
+                    <input v-model="newBrand" type="text" placeholder= 'Brand'required>
+                    <input v-model="newDesc" type="text" placeholder= 'Decription'required>
+                    <input v-model="newCost" type="number" step="0.01" placeholder= 'Cost'required>
+                    <input v-model="newSellAt" type="number" step="0.01" placeholder= 'Sell At'required>
+                    <select v-model="newSaleType"required>
+                    <option>Trade-in</option>
+                    <option>Consignment</option>
+                    </select>
+                    <input id="date-input" v-model="newRecDate" type="date" placeholder= 'Date'required>
+                    <input v-model="newCategory" type="tetx" placeholder= 'Category'required>
+                    <button type='submit'class="buy-btn">Buy</button>
+                </form>
+                
+            
+            </div>  
+            <ul v-show="!item.sold" 
+            v-for="item in inv" 
+            class="items">
+                <li>{{item.itemId}}</li>
+                <li>{{item.brand}}</li>
+                <li>{{item.desc}}</li>
+                <li>${{item.cost}}</li>
+                <li>${{item.sellAt}}</li>
+                <li>{{item.saleType}}</li>
+                <li>{{item.received}}</li>
+                <li>{{item.category}}</li>
+                <button @click="sold(item)" class="sold-btn">Sold</button>
+                <button v-if="item.sellAt > 100 && item.needsPosted" @click="post(item)" class="post-btn">Post</button>
+            </ul>
+        </div>   
+
+        
+
+
+
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
